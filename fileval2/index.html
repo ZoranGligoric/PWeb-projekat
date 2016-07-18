@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html ng-app="filevalApp">
+    <head>
+        <title>Filološki fakultet - sistem za evaluaciju</title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
+		
+		<!--  rezultati ------------------------------------------------------------->
+		
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		
+		<script type="text/javascript" src="js/tableExport.js"></script>
+		<script type="text/javascript" src="js/jquery.base64.js"></script>
+		<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
+		<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
+		<script type="text/javascript" src="js/jspdf/libs/base64.js"></script> 
+		<script type="text/javascript" src="js/canvasjs.min.js"></script> 
+		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		
+		<style>
+			.prikazTabele  {
+			  border: 1px solid grey;
+			  border-collapse: collapse;
+			  padding: 5px;
+			  text-align: left
+			}
+			.heading {
+			  background-color: #f1f1f1;
+			  text-align: left;
+			  font-weight: bold;              
+			}
+			.center {
+			  text-align: center
+			}
+			p .kritSortiranja{
+			  text-decoration: none;
+			  color: blue;
+			}
+			
+			#chartContainer {
+				margin-top: 30px;
+				height: 500px; 
+				width: 100%;
+			}
+			
+		</style>
+		
+		<!--   ------------------------------------------------------------------------>
+		
+		<!--  zadaci ------------------------------------------------------------->
+		
+		<link rel="stylesheet" type="text/css" 
+			href="css/bootstrap-datetimepicker-standalone.css">
+		<link rel="stylesheet" type="text/css" 
+			href="css/bootstrap-datetimepicker-standalone.css">
+			
+		<link rel="stylesheet" type="text/css" 
+			href="css/bootstrap-datetimepicker.css">
+					
+		<link rel="stylesheet" type="text/css" 
+			href="css/bootstrap-datetimepicker.min.css">
+			
+	
+	    
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" />
+		
+		<!-- problem ------------------------------------------------------------------------------->
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-select-1.10.0/dist/js/bootstrap-select.js"></script>
+		<script src="js/moment.js"></script>
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+		
+		<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+				$('.selectpicker').selectpicker({
+				});
+            });
+		</script>
+		
+		<!-- kraj problema ------------------------------------------------------------------------------->
+		
+		
+		<!--   ------------------------------------------------------------------------>
+
+        
+    </head>
+
+    <body>
+    
+		<header>
+			<div class="container" id="navbar-container">
+				<div class="navbar-brand">
+					<img src="img/flf.png" width="50" height="50" style="margin-right: 20px">Filološki fakultet <small>- sistem za evaluaciju</small>
+				</div>
+				<div class="navbar-header pull-right" role="navigation">
+					<a href="#pages/home" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-home"></i>&nbsp;Početna</a>
+					<a href="#pages/zadaci" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-book"></i>&nbsp;Zadaci</a>
+					<a href="#pages/kandidati" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-user"></i>&nbsp;Kandidati</a>
+					<a href="#pages/sheme" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-check"></i>&nbsp;Sheme ocenjivanja</a>
+					<a href="#pages/ocenjivanje" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-pencil"></i>&nbsp;Ocenjivanje</a>
+					<a href="#pages/rezultati" class="btn btn-sm btn-info nav-button-margin"> <i class="glyphicon glyphicon-stats"></i>&nbsp;Statistike</a>
+					<a href="#pages/logout" class="btn btn-sm btn-danger nav-button-margin"> <i class="glyphicon glyphicon-log-out"></i>&nbsp;Izlaz</a>
+				</div>
+			</div>
+		</header>
+
+
+		<div>
+			<div class="container">
+				<div ng-view id="ng-view"></div>
+			   
+			</div>
+		</div>
+		
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-route.min.js"></script>
+		<script src="app/app.js"></script>  
+
+    </body>
+</html>

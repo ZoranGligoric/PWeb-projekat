@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+<head> 
+    <meta charset="UTF-8">
+    
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/jquery-3.0.0.min.js"></script> -->
+    
+    <!--- eksport u pdf --->
+	
+	<!--
+    <script type="text/javascript" src="../js/tableExport.js"></script>
+    <script type="text/javascript" src="../js/jquery.base64.js"></script>
+    <script type="text/javascript" src="../js/jspdf/libs/sprintf.js"></script>
+    <script type="text/javascript" src="../js/jspdf/jspdf.js"></script>
+    <script type="text/javascript" src="../js/jspdf/libs/base64.js"></script> 
+    <script type="text/javascript" src="../js/canvasjs.min.js"></script> 
+    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <style>
+        .prikazTabele  {
+          border: 1px solid grey;
+          border-collapse: collapse;
+          padding: 5px;
+          text-align: left
+        }
+        .heading {
+          background-color: #f1f1f1;
+          text-align: left;
+          font-weight: bold;              
+        }
+        .center {
+          text-align: center
+        }
+        p .kritSortiranja{
+          text-align: center;
+          color: blue;
+        }
+        
+        #chartContainer {
+            margin-top: 30px;
+            height: 500px; 
+            width: 100%;
+        }
+        
+    </style>
+    
+</head>
+
+<body> -->
+    <div ng-app="myApp" ng-controller="rezultatiCtrl">
+
+    <p>Izaberite zadatak za koji želite da se prikažu rezultati: </p>
+    <select ng-model="izabraniZadatak" ng-options="zadatak for zadatak in zadaci">       <!-- dodati search -->
+    </select>
+
+    <!-- {{izabraniZadatak}} -->
+    
+    <br></br>
+    <!-- <p>{{izabraniZadatak}}</p> -->
+    
+
+    <div id="tableContainer" ng-if="izabraniZadatak != ''">
+      
+        <table id="tabelaRezultati" class="prikazTabele" > <!-------------------------------------- POPRAVI ng-if DA NE PRIKAZUJE UVEK TABELU --->
+            <tr>
+                <td class="heading prikazTabele">Indeks</td>
+                <td class="heading prikazTabele" style="color:blue" ng-click="orderByMe('PrezimeIme')">Prezime i Ime</td>
+                <td class="heading prikazTabele">Pogođena tema</td>
+                <td class="heading prikazTabele">Fond reči</td>
+                <td class="heading prikazTabele">Rod imenice</td>
+                <td class="heading prikazTabele" style="color:blue" ng-click="orderByMe('Ukupno')">Ukupno</td>
+            </tr>
+
+            <tr ng-repeat="x in rezultati | orderBy : myOrderBy ">          
+                <td class="prikazTabele">{{ x.Indeks }}</td>
+                <td class="prikazTabele">{{ x.PrezimeIme }}</td>
+                <td class = "center prikazTabele">{{ x.Kriterijum1 }}</td>
+                <td class = "center prikazTabele">{{ x.Kriterijum2 }}</td>
+                <td class = "center prikazTabele">{{ x.Kriterijum3 }}</td>
+                <td class = "center prikazTabele">{{ x.Ukupno }}</td>
+            </tr>
+        </table>
+
+
+
+        <br/>
+
+
+        <a href="#" onClick ="$('#tabelaRezultati').tableExport({type:'excel', escape:'false'});">   <!-- popraviti export  -->
+             <img src='img/excel.jpg' width="24"/>Excel
+        </a>
+    
+    
+        <br></br>
+        
+        <input type="button" value="Proseci poena" ng-click="show=!show" />
+        <!-- <input type="button" value="Broj kandidata po kategorijama" ng-click="show2=!show2" /> -->
+        
+        <br></br>
+
+        <table id="tabelaRezultati" class="prikazTabele" ng-show = "show"> 
+            <tr>            
+                <td class="heading prikazTabele" >Kriterijum</td>           
+                <td class="heading prikazTabele" >Prosek poena</td>
+            </tr>
+
+            <tr ng-repeat="x in proseci ">          
+                <td class="prikazTabele">{{ x.Krit }}</td>
+                <td class="prikazTabele">{{ x.Poeni }}</td>           
+            </tr>
+        </table>
+
+        <br></br>
+        
+    </div>
+    
+    <div class="container" ng-controller="ChartController">        
+        <div id="chartContainer" style="height: 300px; width: 70%;"></div>    
+    </div>
+
+
+    </div>
+    
+    
+    
+
+
+    
+   <!-- 
+    <script>
+    /*  
+    var app = angular.module('myApp', []);
+
+    app.controller('rezultatiCtrl', function($scope) {
+        //console.log("scope...");
+        $scope.izabraniZadatak = '';
+        $scope.zadaci = ["Zadatak1", "Zadatak2", "Zadatak3", "Zadatak4", "Zadatak5", "Zadatak6"];
+        $scope.rezultati = [
+            {"Indeks" : "111", "PrezimeIme":"Ivanovic Ivan", "Kriterijum1":"3", "Kriterijum2":"5", "Kriterijum3":"2", "Ukupno":10},
+            {"Indeks" : "112", "PrezimeIme":"Peric Lazar", "Kriterijum1":"2", "Kriterijum2":"5", "Kriterijum3":"2", "Ukupno":9},
+            {"Indeks" : "113", "PrezimeIme":"Mojicevic Rade", "Kriterijum1":"2", "Kriterijum2":"1", "Kriterijum3":"5", "Ukupno":8},
+            {"Indeks" : "114", "PrezimeIme":"Zetovic Milos", "Kriterijum1":"5", "Kriterijum2":"3", "Kriterijum3":"4", "Ukupno":12}
+        ];
+        $scope.proseci = [
+            {"Krit" : "Kriterijum1", "Poeni":3},
+            {"Krit" : "Kriterijum2", "Poeni":4.667},
+            {"Krit" : "Kriterijum3", "Poeni":4.33},
+            {"Krit" : "Ukupno",      "Poeni":9.75}
+        ];
+        
+        $scope.myOrderBy = "PrezimeIme";
+        
+        $scope.orderByMe = function(x) {
+            $scope.myOrderBy = x;
+            
+            
+        $scope.show = false;
+        $scope.show2 = false;
+        
+       
+        }
+              
+    });
+    
+    app.controller('ChartController', function($scope) {
+
+    CanvasJS.addColorSet("greenShades",
+                [//colorSet Array
+
+                
+                "#008080"
+                          
+                ]);
+                
+    $scope.chart = new CanvasJS.Chart("chartContainer", {
+        theme: 'theme1',
+        colorSet: "greenShades",
+        title:{
+            text: "Nintendo Console Sales"              
+        },
+        axisY: {
+            title: "million units",
+            labelFontSize: 16,
+        },
+        axisX: {
+            labelFontSize: 16,
+        },
+        data: [              
+            {
+                type: "column",
+                dataPoints: [
+                    { label: "Wii U", y: 6.17 },
+                    { label: "Wii", y: 101.06 },
+                    { label: "GameCube", y: 21.74 },
+                    { label: "64", y: 32.93 },
+                    { label: "SNES", y: 49.10 },
+                    { label: "NES", y: 61.91 },
+                    { label: "3DS", y: 43.33 },
+                    { label: "DS", y: 153.99 },
+                    { label: "Advance", y: 81.51 },
+                    { label: "GameBoy", y: 118.69 },
+                ]
+            }
+        ]
+    });
+
+    $scope.chart.render(); //render the chart for the first time
+            
+    
+
+});
+    
+    */
+    </script>
+    
+    
+    
+</body> -->

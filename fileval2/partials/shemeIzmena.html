@@ -1,0 +1,118 @@
+﻿<style type="text/css">
+  .form-horizontal input.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+  }
+
+  .form-horizontal input.ng-valid.ng-dirty {
+    border-color: #78FA89;
+  }
+</style>
+<br/>
+<blockquote><h4>Sheme ocenjivanja</h4></blockquote>
+<br/>
+<div class="view">
+    <div class="container">
+        <div class="row">
+             <nav class= "navbar navbar-default" role= "navigation" ><a class= "navbar-brand" href= "#/sheme">
+                 <i class="glyphicon glyphicon-th-large"></i> Nazad </a>
+             </nav>
+             <h3>{{title}}</h3></br>
+              <div class="col-md-12">
+
+                  <div class="modal fade" id="success" role="dialog" ng-show="changeSuccessful">
+                          <div class="modal-dialog">
+
+                              <div class="modal-content">
+                                  <div class="modal-body">
+                                      <p>Izmena sheme je uspela.</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  <form role="form" name="izmenaIDodavanjeSheme" class="form-horizontal">
+                      <div class="row">
+                          <div class= "form-group" ng-class="{error: izmenaIDodavanjeSheme.name.$invalid}">
+                              <label class= "col-md-2"> Naziv </label>
+                              <div class="col-md-4">
+                                  <input name="name" ng-model="shNaziv" type= "text" class= "form-control" placeholder="Naziv" required/>
+                                  <span ng-show="izmenaIDodavanjeSheme.name.$dirty && izmenaIDodavanjeSheme.name.$invalid" class="help-inline">Naziv je neophodan</span>
+                              </div>
+                          </div>
+                          <div class= "form-group">
+                              <label class= "col-md-2"> Uslov </label>
+                              <div class="col-md-4">
+                                  <input name="uslov" ng-model="shUslov" type= "range" min=0.0 max=1.0 step=0.05 class= "form-control" placeholder="Uslov" required/>{{shUslov}}
+                              </div>
+                          </div>
+                          <div class="form-group" ng-show="shId">
+                              <div class="col-md-6">
+                              <table class="table table-striped table-bordered">
+                                  <thead>
+                                  <th>Opis&nbsp;</th>
+                                  <th>Poeni&nbsp;</th>
+                                  <th></th>
+                                  </thead>
+                                  <tbody>
+                                  <tr ng-repeat="kriterijum in shKriterijumi track by $index">
+                                      <td><input type="text" ng-model="kriterijum.opis" ng-disabled="kriterijum.idkriterijum!=btncl" size="40"></td>
+                                      <td><input type="text" ng-model="kriterijum.poeni" ng-disabled="kriterijum.idkriterijum!=btncl" size="5"></td>
+                                      <td><button type="button" class="btn btn-danger-outline" ng-click="btncl=kriterijum.idkriterijum" > <i class="glyphicon glyphicon-edit"></i>&nbsp; Izmeni kriterijum</button></td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          </div>
+                          <div class= "form-group">
+                              <div class="col-md-6">
+                                      <fieldset  data-ng-repeat="nkr in nkriterijumi">
+                                          <textarea ng-model="nkr.opis" name="opis" placeholder="Opis kriterijuma"></textarea>
+                                          <input type="number" ng-model="nkr.poeni" name="poeni" placeholder="Broj poena">
+                                          <button class="btn btn-danger btn-sm" ng-show="$last" ng-click="removeKrit()">-</button>
+                                      </fieldset>
+                              <button class="btn btn-warning" ng-click="addNewKrit()" style="width: 100px; float: left">Dodaj još</button>
+                              </div>
+                          </div>
+                          <div class="form-group" ng-show="shId">
+                              <div class="col-md-6">
+                              <table class="table table-striped table-bordered">
+                                  <thead>
+                                  <th>Opis&nbsp;</th>
+                                  <th>Poeni&nbsp;</th>
+                                  <th></th>
+                                  </thead>
+                                  <tbody>
+                                  <tr ng-repeat="podeok in shPodeoci track by $index">
+                                      <td><input type="text" ng-model="podeok.opis" ng-disabled="podeok.idpodeok!=btpd" size="40"></td>
+                                      <td><input type="text" ng-model="podeok.poeni" ng-disabled="podeok.idpodeok!=btpd" size="5"></td>
+                                      <td><button type="button" class="btn btn-danger-outline" ng-click="btpd=podeok.idpodeok" > <i class="glyphicon glyphicon-edit"></i>&nbsp; Izmeni podeok</button></td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          </div>
+                          <div class= "form-group">
+                              <div class="col-md-6">
+                                  <fieldset  data-ng-repeat="npd in npodeoci">
+                                      <textarea ng-model="npd.opis" name="opis" placeholder="Opis podeoka skale"></textarea>
+                                      <input type="number" ng-model="npd.poeni" name="poeni" placeholder="Ispunjenost (%)">
+                                      <button class="btn btn-danger btn-sm" ng-show="$last" ng-click="removePod()">-</button>
+                                  </fieldset>
+                                  <button class="btn btn-warning" ng-click="addNewPod()" style="width: 100px; float: left">Dodaj još</button>
+                              </div>
+                          </div>
+                          <div class= "form-group" style="padding-top: 20px">
+                              <label class= "col-md-2"></label>
+                              <div class="col-md-4">
+                                  <a href="#/" class="btn btn-warning">Otkaži</a>
+                                  <button ng-click="saveShema();" ng-disabled="isClean() || myForm.$invalid" class="btn btn-success">{{buttonText}}</button>
+                                  <button ng-click="deleteShema()" ng-show="shId" class="btn btn-danger">Obriši</button>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+        </div>
+    </div>
+</div>

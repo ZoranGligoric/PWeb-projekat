@@ -1,0 +1,360 @@
+﻿<!-- <!DOCTYPE html>
+<html>
+	<head>
+		<script src="../js/angular.min.js"></script>
+		<script src="../js/jquery-2.2.3.js"></script>
+		<script src="../js/jquery-2.2.3.min.js"></script>-->
+<!--	
+	<script src="../js/bootstrap-select-1.10.0/js/bootstrap-select.js"></script>
+	-->
+
+	<!--
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../js/bootstrap-select-1.10.0/dist/css/bootstrap-select.css">
+		<link rel="stylesheet" type="text/css" 
+			href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	-->
+	<!--
+	<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.css">
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.css">
+		-->
+		<!--
+		<link rel="stylesheet" type="text/css" 
+			href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.min.css">
+			-->
+		<!--
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css">
+					
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+		
+	
+	    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.css" />
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css" />
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap-select-1.10.0/dist/js/bootstrap-select.js"></script>
+		<script src="../js/moment.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+		
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
+		
+			<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+    </script>
+		
+		
+	</head>	
+<body>
+-->
+<div ng-app="filevalApp"	ng-controller="ocenjivanjeCtrl" id = "container" layout-align = "center" >
+
+	<h1 style="margin-left:100px"> Ocenjivanje </h1>
+
+	<button class="btn btn-default btn-sm btn-info" ng-click="definisi()" style="margin-left:100px; font-size:110%;"> Oceni </button>
+	<button class="btn btn-default btn-sm btn-info" ng-click="pregledaj()" style="margin-left:100px; font-size:110%"> Prikaži status evaluacije </button>
+
+	<!--
+	<div style="margin-left:100px"> {{poruka}}  </br> 
+	-->
+	</br></br>
+	<!-- ****************************************************************************************
+		forma za definisanje zadatka
+	-->
+	<form name = "ocenjivanjeForma" ng-show="showDefinisi" class="form-horizontal col-sm-10 col-xs-2" role="form" 
+		  width = "100" style="background-color: #e4edce; margin-left:100px; margin-bottom:35px"> 
+	
+		<fieldset style = "border: 1px solid #ccc;
+  padding: 10px;">
+	
+		<legend > Ocenjivanje kandidata </legend>
+	<!--	
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="grupaKandidata">Grupa kandidata:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="grupaKandidata" class="selectpicker" data-live-search="true" ng-model="grupaModel">
+		  	  <option >Izaberite grupu kandidata:</option>
+			  <option selected data-tokens="ketchup mustard">Grupa1</option>
+			  <option data-tokens="mustard">Grupa 2</option>
+			  <option data-tokens="frosting">Grupa 3</option>
+		  </select>
+	  </div>
+	  </div>
+	 -->
+	 
+	 <div class="form-group">
+		<label class="control-label col-sm-2" for="grupaKandidata">Grupa kandidata:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="grupaKandidata" style="margin-top:5px;" ng-model="grupaModel"> <!--  atribut ng-model="grupaModel" -->
+		  	  <option ng-repeat="grupa in grupeKandidata track by $index">{{g.idGrupa}}: {{g.naziv}}</option>
+		  </select>
+		</div>
+	  </div>
+	 
+<!--	 
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="zadatak">Zadatak:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="zadatak" class="selectpicker" data-live-search="true" ng-model="zadatakModel">
+		  	  <option>Izaberite zadatak:</option>
+			  <option selected>Zadatak1</option>
+			  <option data-tokens="mustard">Zadatak 2</option>
+			  <option data-tokens="frosting">Zadatak 3</option>
+		  </select>
+	  </div>
+	  </div>
+	-->
+	
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="zadatak">Zadatak:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="zadatak" style="margin-top:5px;" ng-model="zadatakModel"> <!-- atribut  ng-model="zadatakModel" -->
+			  <option ng-repeat="zadatak in zadaci track by $index"> {{zadatak.naziv}} </option>
+		  </select>
+	  </div>
+	  </div>
+		<div class="form-group" ng-if="zadatakModel!='Izaberite zadatak:' && grupaModel!='Izaberite grupu kandidata:'">
+			
+
+				</br>
+				<label class="control-label col-sm-3" for="kan" style="font-size:150%;">Trenutni kandidat:</label>				
+				<div class="col-sm-10, col-xs-4" style="font-size:170%; margin-top:5px; color:green; font-style:bold">
+					{{kandidati[i]}}
+				 </div>
+				
+			
+			</br></br>
+			<label class="control-label col-sm-2">Kriterijumi:</label></br></br>
+			
+			<div ng-repeat="k in kriterijumi">
+			<label class="col-sm-2 control-label">{{k}}:</label>
+			<div class="col-sm-10">
+
+				<label class="radio-inline" ng-repeat="x in podeociSkale">
+				  <input type="radio" name="{{k}}" id="{{k}} + '_' + {{x}} ">
+				  {{x}}
+				</label>	  
+			</div>
+			</div>
+			
+			</br></br>
+			<label class="control-label col-sm-2" for="finalniKomentar">Finalni komentar:</label>
+			<div class="col-sm-10, col-xs-10"> 
+			<textarea class="form-control" id="finalniKomentar" placeholder="Unesite finalni komentar" rows = "10"> </textarea>
+			</div>
+			
+			
+			</br></br>
+			<div>
+			<label class="col-sm-2 control-label">Faza evaluacije:</label>
+			<div class="col-sm-10">
+				<label class="radio-inline">
+				  <input type="radio" name="fazaRadioDugmici" id="fazaNijeRadjeno" checked>
+				  Nije radjeno
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="fazaRadioDugmici" id="fazaPonovoPogledati">
+					  Ponovo pogledati
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="fazaRadioDugmici" id="fazaKompletirano">
+					  Kompletirano
+				</label>				
+			</div>
+			</div>
+			
+			
+			
+			<!-- CHECKBOX-ovi
+			<label class="control-label col-sm-2">Kriterijum 1:</label>
+			<div class="col-sm-10, col-xs-4">
+			<label class="checkbox-inline">
+			  <input type="checkbox" name = "prvi" id="inlineCheckbox1" value="option1"> 1
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" name = "prvi" id="inlineCheckbox2" value="option2"> 2
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" name = "prvi" id="inlineCheckbox3" value="option3"> 3
+			</label>
+			</div>
+			
+			</br></br>
+			<label class="control-label col-sm-2">Kriterijum 2:</label>
+			<div class="col-sm-10, col-xs-4">
+			<label class="checkbox-inline">
+			  <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+			</label>
+			</div>
+			-->
+			
+			</br></br>
+			
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button id = "prethodniButton" type="button" ng-disabled = "!prethodniEnabled" class="btn btn-default" style="margin-left:0px;" ng-click="prethodniKandidat()"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;Prethodni</button>
+		  <button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i>&nbsp;Obrisi evaluaciju</button>
+		  <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;Izmeni evaluaciju</button>
+		  <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i>&nbsp;Sacuvaj evaluaciju</button>
+		  <button id = "sledeciButton" type="button" ng-disabled = "!sledeciEnabled" class="btn btn-default" style="margin-right:0px;" ng-click="sledeciKandidat()"><i class="glyphicon glyphicon-step-forward"></i>&nbsp;Sledeci</button>
+		</div>
+			
+		</div> <!-- trenutni Kandidat -->
+			
+			
+			</fieldset>
+			</form>
+	  </div>
+	  	
+	<!-- ****************************************************************************************
+		kraj forme za definisanje zadatka
+	-->
+	    </br>
+	  	<div ng-show="showPregledaj" class="col-sm-10 col-xs-2" 
+		  width = "100" style="background-color: #e4edce; margin-left:100px; font-size:17px;"> 
+		<span>Broj i procenat neurađenih evaluacija:</span></br>
+		<span>Broj i procenat evaluacija koje treba ponovo pogledati:</span></br>
+		<span>Broj i procenat kompletno urađenih evaluacija:</span></br>
+	  
+		</div>
+	  <!--
+	  <select class="selectpicker" data-show-subtext="true" data-live-search="true">
+        <option data-subtext="Rep California">Tom Foolery</option>
+        <option data-subtext="Sen California">Bill Gordon</option>
+        <option data-subtext="Sen Massacusetts">Elizabeth Warren</option>
+        <option data-subtext="Rep Alabama">Mario Flores</option>
+        <option data-subtext="Rep Alaska">Don Young</option>
+        <option data-subtext="Rep California" disabled="disabled">Marvin Martinez</option>
+      </select>
+	  -->
+	  <!--
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <div class="checkbox">
+			<label><input type="checkbox"> Remember me</label>
+		  </div>
+		</div>
+	  </div>
+	  
+	  -->
+
+
+	
+	<!-- ******************************************* pregledanje zadataka -->
+	
+	
+	
+	
+	</div> <!-- div koji sadrzi forme -->
+	
+	<script>
+	
+	/*app.controller('ocenjivanjeCtrl', function($scope) {
+	
+		$scope.kandidati = ["Mika Mitrovic", "Mia Mitrovic", "Patak Daca", "Miki Maus", "Mini Maus", "Snoopy", "Kica"];
+		$scope.selZadatak = false;
+		$scope.selGrupaKandidata = false;
+		$scope.sel = false;
+		console.log("log");
+		
+		$scope.zadatakModel = 'Izaberite zadatak:';
+		$scope.grupaModel = 'Izaberite grupu kandidata:';
+		$scope.i = 0;
+		$scope.brojKandidata = $scope.kandidati.length;
+		console.log("Broj kandidata je: " + ($scope.brojKandidata-1));
+	
+		$scope.selektovano = function(){
+			if($scope.selGrupaKandidata && $scope.selZadatak)
+				$scope.sel = true;
+		};
+	
+		$scope.selektovanZadatak = function(){
+			$scope.selZadatak = true;
+			console.log("selektovanZadatak()");
+			$scope.selektovano();
+		};
+		
+		$scope.selektovanaGrupaKandidata = function(){
+			$scope.selGrupaKandidata = true;
+			$scope.selektovano();
+		};
+	
+	
+		$scope.kriterijumi = ["Kriterijum 1", "Kriterijum 2", "Kriterijum 3"];
+		$scope.podeociSkale = ["nedovoljan", "dovoljan", "dobar", "vrlo dobar", "odlican", "izuzetno odlican"];
+		
+		$scope.sledeciEnabled = true;
+		$scope.prethodniEnabled = false;
+		
+		console.log("Definisemo sledeciKandidat()");
+		$scope.sledeciKandidat = function(){
+			
+			$scope.i++;
+			console.log("sledeciKandidat() \t" + $scope.i);
+			if($scope.i == $scope.brojKandidata-1){
+				console.log("sledeci disableujemo");
+				$scope.sledeciEnabled = false;
+			}
+			if($scope.i == 0)
+				$scope.prethodniEnabled = false;
+			else{
+				console.log("prethodni enableujemo");
+				$scope.prethodniEnabled = true;
+				$("#prethodniButton").attr("ng-disabled", "false");
+			}
+		}
+		
+		$scope.prethodniKandidat = function(){
+
+			$scope.i--;
+			console.log("prethodniKandidat() \t" + $scope.i);
+			if($scope.i == 0)
+				$scope.prethodniEnabled = false;
+			if($scope.i == $scope.brojKandidata-1)
+				$scope.sledeciEnabled = false;
+			else
+				$scope.sledeciEnabled = true;
+		}
+	
+		
+		$scope.poruka = "nista nije izabrano";
+		$scope.showDefinisi = true;
+		$scope.showPregledaj = false;
+		
+		$scope.definisi = function(){
+			//$scope.poruka = "definisi";
+			$scope.showDefinisi = true;
+			$scope.showPregledaj = false;
+		};
+		$scope.pregledaj = function(){
+			$scope.poruka = "pregledaj";
+			$scope.showPregledaj = true;
+			$scope.showDefinisi = false;
+		};
+		
+		//za <select> i search 
+		$scope.koordinatori = ["Koordinator1", "Koordinator2", "Koordinator3", "Koordinator4", "Koordinator5"];
+	});*/
+	</script>
+
+</div>
+
+
+
+</body>
+
+</html>

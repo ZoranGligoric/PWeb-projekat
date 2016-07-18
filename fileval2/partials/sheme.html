@@ -1,0 +1,37 @@
+<br/>
+<blockquote><h4>Sheme ocenjivanja</h4></blockquote>
+<br/>
+<div class="row">
+    <div class="col-md-12" > <!-- ng-show="data.length > 0"> -->
+    
+    <nav class= "navbar navbar-default" role= "navigation" >
+    <div class= "navbar-header" >
+    <a class="btn btn-lg btn-success" href="#/izmeniShemu/0"><i class="glyphicon glyphicon-plus"></i>&nbsp;Dodaj shemu</a>
+    </div>
+    </nav>
+        <table class="table table-striped table-bordered">
+        <thead>
+        <th>Naziv&nbsp;</th>
+        <th>Uslov&nbsp;</th>
+        <th>Broj kriterijuma&nbsp;</th>
+        <th>Preciznost (podeoka)&nbsp;</th>
+        <th></th>
+
+        </thead>
+        <tbody>
+            <tr ng-repeat="shema in data track by $index">
+                <td>{{shema.naziv}}</td>
+                <td>{{shema.uslov}}</td>
+                <td>{{shema.kriterijumi}}</td>
+                <td>{{shema.preciznost}}</td>
+                <td><a href="#/izmeniShemu/{{shema.idshema}}" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Izmeni shemu</a></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" ng-show="data.length == 0">
+        <div class="col-md-12">
+            <h4>Nije pronađena ni jedna shema</h4>
+        </div>
+    </div>
+</div>

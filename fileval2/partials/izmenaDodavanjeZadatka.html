@@ -1,0 +1,295 @@
+<!--
+<!DOCTYPE html>
+<html>
+	<head> 
+		<script src="js/angular.min.js"></script>
+		<script src="js/jquery-2.2.3.js"></script>
+		<script src="js/jquery-2.2.3.min.js"></script> MOZDA TREBA U INDEX OVAJ I PRETHODNI -->
+<!--	
+	<script src="../js/bootstrap-select-1.10.0/js/bootstrap-select.js"></script>
+	-->
+
+	<!--
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../js/bootstrap-select-1.10.0/dist/css/bootstrap-select.css">
+	-->
+	
+	<!--
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.css">
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.css">
+		<!--
+		<link rel="stylesheet" type="text/css" 
+			href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker-standalone.min.css">
+			-->
+			<!--
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css">
+					
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+		
+	
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" />
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-select-1.10.0/dist/js/bootstrap-select.js"></script>
+		<script src="js/moment.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+		
+    
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
+		
+			<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+    </script>
+		
+		
+	</head>	
+<body>
+-->
+
+
+
+<div ng-app="filevalApp"	ng-controller="zadaciCtrl" id = "container" layout-align = "center">
+
+	<h1 style="margin-left:100px"> Zadaci </h1>
+<!--
+	<button class="btn btn-default btn-sm btn-info" ng-click="definisi()" style="margin-left:100px; font-size:120%;"> Definisi </button>
+	<button class="btn btn-default btn-sm btn-info" ng-click="pregledaj()" style="margin-left:100px; font-size:120%" onclick="location.href='#/pages/zadaci"> Pregledaj </button>
+-->
+	
+	</br></br>
+	<!--
+	<div style="margin-left:100px"> {{poruka}}  </br>
+	-->
+	
+	<!-- ****************************************************************************************
+		forma za definisanje zadatka
+	-->
+	
+	<nav class= "navbar navbar-default" role= "navigation" ><a class= "navbar-brand" href= "#/pages/zadaci">
+                 <i class="glyphicon glyphicon-th-large"></i> Nazad </a>
+             </nav>
+	
+	<form name = "zadatakForma" class="form-horizontal col-sm-10 col-xs-2" role="form" 
+		  width = "100" style="background-color: #e4edce; margin-left:100px; margin-bottom:35px" ng-submit="submit()"> 
+	
+		<fieldset style = "border: 1px solid #ccc;
+  padding: 10px;">
+	
+		<legend > Definisanje zadatka </legend>
+
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="naziv">Naziv:</label>
+			<div class="col-sm-10, col-xs-4"> 
+		  <input type="text" name = "nazivv" class="form-control" id="naziv" placeholder="Unesite naziv zadatka" ng-model="nazivZadatka" style="color: {{color}}" required/>
+		  <span ng-show="zadatakForma.nazivv.$dirty && zadatakForma.nazivv.$invalid" class="help-inline">Naziv je neophodan</span>
+			</div> 
+	  </div>
+	  
+	  
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="opis">Opis:</label>
+		<div class="col-sm-10, col-xs-4"> 
+		  <textarea class="form-control" id="opis" placeholder="Unesite opis zadatka" rows = "5" ng-model="opisZadatka" required> </textarea>
+		</div>
+	  </div>
+	  
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="pdfLink">Link do .pdf fajla:</label>
+		<div class="col-sm-10, col-xs-4"> 
+		  <input type="text" class="form-control" id="pdfLink" placeholder="Unesite link" ng-model="pdfLink" required>
+			</div>
+	  </div>
+	  
+	  <!-- ******************************************************************************* --> 
+	<div class="form-group">
+    <label class="col-sm-2 control-label">Obavezan?:</label>
+    <div class="col-sm-10">
+      <div class="radio" ng-init="obavezanRadio = 1">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1" value="da" ng-model="obavezanRadio"/>
+          Da
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios2" value="ne" ng-model="obavezanRadio"/>
+          Ne
+        </label>
+      </div>
+    </div>
+  </div>
+
+	  <!-- ******************************************************************************* -->   
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="brojPoena">Broj poena:</label>
+			<div class="col-sm-10, col-xs-4"> 
+		  <input name = "poeni" type="number" class="form-control" id="brojPoena" placeholder="Unesite broj poena" ng-model="brojPoena" required>
+		  
+			</div> 
+	  </div>
+	  
+	 <!-- ******************************************************************************* -->   
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="datumKreiranja">Datum kreiranja:</label>
+			<div class="col-sm-10, col-xs-4 input-group date" id="datetimepicker1"> 
+		  <input type="text" class="form-control" id="datumKreiranja" ng-model="datumKreiranja" required/>
+		  <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+			</div> 
+		</div>
+
+
+	 <!-- ******************************************************************************* --> 	  
+	 <!-- <div class="form-group">
+		<label class="control-label col-sm-2" for="koordinator">Koordinator:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="koordinator" class="selectpicker" data-live-search="true" required>
+		  	  <option selected>Izaberite koordinatora:</option>
+			  <option ng-repeat="x in koordinatori" >{{x}}</option>
+			  <!--  atribut u option-u data-tokens="ketchup mustard" -->
+		 <!--  </select>
+	  </div>
+	  </div>
+	  -->
+	  
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="koordinator">Koordinator:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="koordinator" style="margin-top:5px;" required ng-model="koordinator">
+		  	  <!-- <option selected>Izaberite koordinatora:</option> -->
+			  <option ng-repeat="x in koordinatori">{{x.idKoordinator}}: {{x.ime}} {{x.prezime}}, {{x.institucija}}</option>
+			  <!--  atribut u option-u data-tokens="ketchup mustard" -->
+		  </select>
+	  </div>
+	  </div>
+	  
+	  <!-- ******************************************************************************* --> 	  
+	  
+	  <!--
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="grupa">Grupa:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="grupa" class="selectpicker">
+		  	  <option selected>Izaberite grupu:</option>
+			  <option>Grupa 1</option>
+			  <option>Grupa 2</option>
+			  <option>Grupa 3</option>
+		  </select>
+	  </div>
+	  </div>
+	  -->
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="grupa">Grupa:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="grupa" style="margin-top:5px;" required ng-model="grupa">
+		  	  <!-- <option selected>Izaberite grupu:</option> -->
+			  <option ng-repeat="g in grupeKandidata">{{g.idGrupa}}: {{g.naziv}}</option>
+	
+		  </select>
+	  </div>
+	  </div>
+	  
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="semaOcenjivanja">Sema ocenjivanja:</label>
+		<div class="col-sm-10, col-xs-4">
+		  <select id="semaOcenjivanja" style="margin-top:5px;" required ng-model="sema">
+		  	  <!-- <option selected>Izaberite semu ocenjivanja:</option> -->
+			  <!-- TODO: sta treba da se ispisuje za semu? -->
+			  <option ng-repeat="s in semeOcenjivanja track by $index">{{s.idshema}}: {{s.naziv}}</option>
+
+		  </select>
+	  </div>
+	  </div>
+	  
+	  <!--
+	  <select class="selectpicker" data-show-subtext="true" data-live-search="true">
+        <option data-subtext="Rep California">Tom Foolery</option>
+        <option data-subtext="Sen California">Bill Gordon</option>
+        <option data-subtext="Sen Massacusetts">Elizabeth Warren</option>
+        <option data-subtext="Rep Alabama">Mario Flores</option>
+        <option data-subtext="Rep Alaska">Don Young</option>
+        <option data-subtext="Rep California" disabled="disabled">Marvin Martinez</option>
+      </select>
+	  -->
+	  <!--
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <div class="checkbox">
+			<label><input type="checkbox"> Remember me</label>
+		  </div>
+		</div>
+	  </div>
+	  
+	  -->
+	  
+	  
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button type="reset" class="btn btn-default" style="background-color:green;">Resetuj</button>
+		  <button type="submit" class="btn btn-default" style="background-color:green;">Sačuvaj</button>
+		  <button type="button" ng-click="obrisiZadatak()" ng-show="brisanjeShow" class="btn btn-danger">Obriši</button>
+		</div>
+	  </div>
+	
+	
+	
+	
+	</fieldset>
+	
+	</form>
+	<!-- ****************************************************************************************
+		kraj forme za definisanje zadatka
+	-->
+	
+	
+	</div> <!-- div koji sadrzi forme -->
+	
+	
+	<!--
+	<script>
+	
+	
+	//var app = angular.module('myApp', []);
+	/*
+	app.controller('zadaciCtrl', function($scope) {
+		$scope.names = ["Emil", "Tobias", "Linus"];
+		$scope.poruka = "nista nije izabrano";
+		$scope.showDefinisi = true;
+		$scope.showPregledaj = false;
+		
+		$scope.definisi = function(){
+			$scope.poruka = "definisi";
+			$scope.showDefinisi = true;
+			$scope.showPregledaj = false;
+		};
+		$scope.pregledaj = function(){
+			$scope.poruka = "pregledaj";
+			$scope.showPregledaj = true;
+			$scope.showDefinisi = false;
+		};
+		
+		//za <select> i search 
+		$scope.koordinatori = ["Koordinator1", "Koordinator2", "Koordinator3", "Koordinator4", "Koordinator5"];
+	});
+	*/
+	</script>
+
+</div>
+
+
+
+</body>
+
+</html> -->
